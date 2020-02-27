@@ -49,17 +49,18 @@ class App:
         self.update_player()
 
         # item moving
-        for i, v in enumerate(self.fruit):
-            self.fruit[i] = self.update_fruit(*v)
+        if self.START_FLG: 
+            for i, v in enumerate(self.fruit):
+                self.fruit[i] = self.update_fruit(*v)
         
-        for i, v in enumerate(self.star):
-            self.star[i] = self.update_star(*v)
+            for i, v in enumerate(self.star):
+                self.star[i] = self.update_star(*v)
         
-        for i, v in enumerate(self.bomb):
-            self.bomb[i] = self.update_bomb(*v)
+            for i, v in enumerate(self.bomb):
+                self.bomb[i] = self.update_bomb(*v)
 
-        for i, v in enumerate(self.enemy):
-            self.enemy[i] = self.update_enemy(*v)
+            for i, v in enumerate(self.enemy):
+                self.enemy[i] = self.update_enemy(*v)
         
         if pyxel.btn(pyxel.KEY_0):
             self.START_FLG = True
@@ -90,7 +91,7 @@ class App:
     def draw(self):
         if self.START_FLG == False:
             pyxel.cls(0)
-            pyxel.text(51, 40, "GAME START", pyxel.frame_count % 16)
+            pyxel.text(40, 40, "GAME START", pyxel.frame_count % 16)
             pyxel.blt(
                 50,
                 50,
@@ -115,7 +116,7 @@ class App:
 
         # draw gameover
         if self.GAME_OVER:
-            pyxel.text(51, 40, "GAME OVER", pyxel.frame_count % 16)
+            pyxel.text(40, 40, "GAME OVER", pyxel.frame_count % 16)
             pyxel.blt(self.player_x, self.player_y-10, 0, 32, 16, 16, 16, 0)
             self.speed = 0
             self.counter = 0
@@ -172,7 +173,6 @@ class App:
                 )
                 pyxel.text(self.player_x + 10,
                     self.player_y, "!!", pyxel.frame_count % 16)
- 
         # draw score
         s = "Score {:>4}".format(self.score)
         if self.speed == 0 :
@@ -222,7 +222,6 @@ class App:
             is_active = False
             self.player_xy = min(self.player_xy, -8)
             self.GAME_OVER = True
-            
         y += 2
  
         if y > 100:
